@@ -3,6 +3,8 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const NavbarWrapper = styled.div`
+  height: 80px;
+
   ul {
     list-style-type: none;
     margin: 0;
@@ -27,10 +29,11 @@ const NavbarWrapper = styled.div`
         background-color: #ffbbff;
       }
     }
+  }
 
-    .float-right {
-      float: right;
-    }
+  .login-div {
+    display: inline;
+    float: right;
   }
 `;
 
@@ -47,11 +50,14 @@ const Navbar: NextComponentType = () => {
         <li>
           <Link href='/users'>Users</Link>
         </li>
-        <li>
-          <Link href='/login'>
-            <a className='float-right'>Login</a>
-          </Link>
-        </li>
+        <div className='login-div'>
+          <li>
+            <Link href='/login'>Login</Link>
+          </li>
+          <li>
+            <Link href='/register'>Register </Link>
+          </li>
+        </div>
       </ul>
     </NavbarWrapper>
   );

@@ -1,7 +1,40 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import UserList from "../../components/users/userList";
+import styled from "styled-components";
+import { UserType } from "../../models/models";
 
-const User: NextPage = () => {
+const StyledMain = styled.div`
+  background-color: ${(props) => props.theme.colors.secondary};
+  max-width: 70%;
+  padding: 1em 2em;
+  font-size: 2em;
+  border-radius: 1em;
+  box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
+
+  h1 {
+    text-decoration: underline;
+    margin-bottom: 1em;
+  }
+`;
+
+const exampleUser: UserType = {
+  id: "user",
+  name: "username",
+  email: "ups@ups.com",
+  password: "why is this sent?!",
+  roles: ["user"],
+  created_at: new Date().toDateString(),
+};
+
+const UserPage: NextPage = () => {
+  const [userList, setUserList] = useState<UserType[]>([exampleUser]);
+
+  useEffect(() => {
+    console.log("UseEffect to do uwu");
+  }, []);
+
   return (
     <>
       <Head>
@@ -10,9 +43,12 @@ const User: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>User</main>
+      <StyledMain>
+        <h1>Users</h1>
+        <UserList users={userList} />
+      </StyledMain>
     </>
   );
 };
 
-export default User;
+export default UserPage;

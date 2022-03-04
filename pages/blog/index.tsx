@@ -1,7 +1,20 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import PostList from "../../components/blog/postList";
+import { PostType } from "../../models/models";
 
-const Blog: NextPage = () => {
+const BlogPage: NextPage = () => {
+  const [posts, setPosts] = useState<PostType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("https://testapi.schattenbrot.com/v1/posts");
+      const data: PostType[] = await response.json();
+      setPosts(data);
+    })();
+  }, []);
+
   return (
     <>
       <Head>
@@ -10,9 +23,12 @@ const Blog: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>Blog</main>
+      <main>
+        <h1>Blog</h1>
+        <PostList posts={posts} />
+      </main>
     </>
   );
 };
 
-export default Blog;
+export default BlogPage;
