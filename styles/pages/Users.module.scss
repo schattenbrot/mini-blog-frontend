@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+.container {
+  background-color: $background;
+  max-width: 70%;
+  padding: 1em 2em;
+  font-size: 2em;
+  border-radius: 1em;
+  box-shadow: 0 0.25em 1em $secondary-highlight;
+
+  h1 {
+    color: $secondary-highlight;
+    text-decoration: underline;
+    margin-bottom: 1em;
+  }
+}

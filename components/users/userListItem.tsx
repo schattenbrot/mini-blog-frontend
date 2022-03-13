@@ -5,7 +5,7 @@ const ListItem = styled.li`
   margin: 0;
   padding: 1em;
   border-radius: 0.5em;
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: #ccc;
 
   h2 {
     display: inline-block;
@@ -32,7 +32,7 @@ const ListItem = styled.li`
   &:hover {
     scale: 1.1;
     background-color: white;
-    box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
+    box-shadow: 0 0.25em 1em #fff;
   }
 `;
 

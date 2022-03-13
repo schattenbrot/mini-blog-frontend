@@ -1,0 +1,20 @@
+@use "../abstracts" as *;
+
+.grid {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 3.5rem auto;
+  grid-template-areas: "header" "main";
+}
+
+.header {
+  grid-area: header;
+}
+
+.content {
+  background-color: $background;
+  grid-area: main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

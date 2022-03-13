@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import PostList from "../../components/blog/postList";
+import PostList from "../../components/blog/PostList";
 import { PostType } from "../../models/models";
+import styles from "../../styles/pages/Blog.module.scss";
 
-const BlogPage: NextPage = () => {
+const Blog: NextPage = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
@@ -24,11 +25,11 @@ const BlogPage: NextPage = () => {
       </Head>
 
       <main>
-        <h1>Blog</h1>
+        <h1 className={styles.title}>Blog</h1>
         <PostList posts={posts} />
       </main>
     </>
   );
 };
 
-export default BlogPage;
+export default Blog;

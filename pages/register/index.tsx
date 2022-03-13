@@ -2,53 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
-import styled from "styled-components";
-import Button from "../../components/base/button";
+import styles from "../../styles/pages/Register.module.scss";
+import Button from "../../components/base/Button";
 import { validateEmail, validatePassword } from "../../helpers/validation";
-
-const Main = styled.div`
-  background-color: ${(props) => props.theme.colors.secondary};
-  max-width: 70%;
-  padding: 1em 2em;
-  font-size: 2em;
-  border-radius: 1em;
-  box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
-
-  h1 {
-    text-decoration: underline;
-    margin-bottom: 1em;
-  }
-
-  .input-element {
-    margin-bottom: 1em;
-  }
-
-  label {
-    display: block;
-  }
-
-  input {
-    font-size: 1em;
-    display: block;
-    width: 100%;
-    border-radius: 1em;
-    border: none;
-
-    &:hover,
-    &:focus {
-      box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
-    }
-  }
-
-  .control {
-    float: right;
-    button {
-      margin: 0 0.25em;
-      padding: 0.25em 1em;
-      font-size: 1em;
-    }
-  }
-`;
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
@@ -135,10 +91,10 @@ const RegisterPage: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Main>
+      <div className={styles.container}>
         <h1>Register</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
-          <div className='input-element'>
+          <div className={styles["input-element"]}>
             <label htmlFor='email'>Email</label>
             <input
               type='email'
@@ -148,7 +104,7 @@ const RegisterPage: NextPage = () => {
               onInput={emailInputHandler}
             />
           </div>
-          <div className='input-element'>
+          <div className={styles["input-element"]}>
             <label htmlFor='password'>Password</label>
             <input
               type='password'
@@ -158,7 +114,7 @@ const RegisterPage: NextPage = () => {
               onInput={passwordInputHandler}
             />
           </div>
-          <div className='input-element'>
+          <div className={styles["input-element"]}>
             <label htmlFor='confirm-password'>Confirm Password</label>
             <input
               type='password'
@@ -168,7 +124,7 @@ const RegisterPage: NextPage = () => {
               onInput={confirmPasswordInputHandler}
             />
           </div>
-          <div className='control'>
+          <div className={styles.control}>
             <Button type='reset' className='danger'>
               Reset
             </Button>
@@ -180,7 +136,7 @@ const RegisterPage: NextPage = () => {
             </Button>
           </div>
         </form>
-      </Main>
+      </div>
     </>
   );
 };

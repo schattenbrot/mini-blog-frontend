@@ -1,0 +1,11 @@
+$primary: hsla(0, 0%, 100%, 100%);
+$primary-80: hsla(0, 0%, 100%, 80%);
+$secondary: hsl(0, 0, 0%);
+$highlight: hsl(271, 76%, 53%);
+$secondary-highlight: hsl(300, 100%, 87%);
+$background: hsl(0, 0%, 20%);
+$status: (
+  ok: green,
+  warning: yellow,
+  danger: red,
+);

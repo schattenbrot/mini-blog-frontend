@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import styles from "../styles/pages/Home.module.scss";
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +12,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1>Home</h1>
+        <h1 className={styles.title}>Home</h1>
       </main>
     </>
   );

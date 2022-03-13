@@ -1,12 +1,10 @@
-import styled from "styled-components";
+import styles from "../../styles/components/blog/PostList.module.scss";
 import { PostType } from "../../models/models";
-import PostListItem from "./postListItem";
+import PostListItem from "./PostListItem";
 
 export type PostListType = {
   posts: PostType[];
 };
-
-const StyledPostList = styled.ul``;
 
 const PostList: React.FC<PostListType> = (props) => {
   const { posts } = props;
@@ -15,7 +13,7 @@ const PostList: React.FC<PostListType> = (props) => {
     <PostListItem post={post} key={post.id} />
   ));
 
-  return <StyledPostList>{postList}</StyledPostList>;
+  return <ul className={styles["post-list"]}>{postList}</ul>;
 };
 
 export default PostList;

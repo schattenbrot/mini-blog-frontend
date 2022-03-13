@@ -1,0 +1,5 @@
+@use "_colors.scss";
+
+@function getColor($color-type) {
+  @return map-get(colors.$colors, $color-type);
+}

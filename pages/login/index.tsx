@@ -2,54 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
-import styled from "styled-components";
-import Button from "../../components/base/button";
+import Button from "../../components/base/Button";
+import styles from "../../styles/pages/Login.module.scss";
 
-const Main = styled.div`
-  background-color: ${(props) => props.theme.colors.secondary};
-  max-width: 70%;
-  padding: 1em 2em;
-  font-size: 2em;
-  border-radius: 1em;
-  box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
-
-  h1 {
-    text-decoration: underline;
-    margin-bottom: 1em;
-  }
-
-  .input-element {
-    margin-bottom: 1em;
-  }
-
-  label {
-    display: block;
-  }
-
-  input {
-    font-size: 1em;
-    display: block;
-    width: 100%;
-    border-radius: 1em;
-    border: none;
-
-    &:hover,
-    &:focus {
-      box-shadow: 0 0.25em 1em ${(props) => props.theme.colors.primary};
-    }
-  }
-
-  .control {
-    float: right;
-    button {
-      margin: 0 0.25em;
-      padding: 0.25em 1em;
-      font-size: 1em;
-    }
-  }
-`;
-
-const LoginPage: NextPage = () => {
+const Login: NextPage = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -125,10 +81,10 @@ const LoginPage: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Main>
+      <div className={styles.container}>
         <h1>Login</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
-          <div className='input-element'>
+          <div className={styles["input-element"]}>
             <label htmlFor='email'>Email</label>
             <input
               type='email'
@@ -138,7 +94,7 @@ const LoginPage: NextPage = () => {
               onInput={emailInputHandler}
             />
           </div>
-          <div className='input-element'>
+          <div className={styles["input-element"]}>
             <label htmlFor='password'>Password</label>
             <input
               type='password'
@@ -148,7 +104,7 @@ const LoginPage: NextPage = () => {
               onInput={passwordInputHandler}
             />
           </div>
-          <div className='control'>
+          <div className={styles.control}>
             <Button type='reset' className='danger'>
               Reset
             </Button>
@@ -160,9 +116,9 @@ const LoginPage: NextPage = () => {
             </Button>
           </div>
         </form>
-      </Main>
+      </div>
     </>
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,0 +1,54 @@
+@use "../abstracts" as *;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 3.5rem auto;
+  grid-template-areas: "logo navbar";
+  background-color: darken($background, 10%);
+}
+
+.logo {
+  background: $highlight;
+  height: 3.5rem;
+  width: 3.5rem;
+  grid-area: logo;
+  text-decoration: none;
+}
+
+.nav {
+  grid-area: navbar;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+
+    list-style-type: none;
+    height: 100%;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  li {
+    a {
+      color: $primary;
+      text-decoration: none;
+      font-size: 2rem;
+      padding: 1rem;
+
+      &:hover {
+        background-color: $highlight;
+      }
+    }
+  }
+
+  .login-div {
+    display: inline;
+    float: right;
+  }
+}
