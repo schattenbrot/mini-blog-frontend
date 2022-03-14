@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import UserList from "../../components/users/userList";
+import UserList from "../../components/users/UserList";
 import { UserType } from "../../models/models";
 
 import styles from "../../styles/pages/Users.module.scss";

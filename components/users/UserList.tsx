@@ -1,12 +1,6 @@
-import styled from "styled-components";
+import styles from "../../styles/components/users/UserList.module.scss";
 import { UserType } from "../../models/models";
-import UserListItem, { UserListItemProps } from "./userListItem";
-
-const UnorderedList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-`;
+import UserListItem, { UserListItemProps } from "./UserListItem";
 
 type UserListProps = {
   users: UserType[];
@@ -23,7 +17,7 @@ const UserList: React.FC<UserListProps> = (props) => {
     <UserListItem user={user} key={user.id} />
   ));
 
-  return <UnorderedList>{listItems}</UnorderedList>;
+  return <ul className={styles["user-list"]}>{listItems}</ul>;
 };
 
 export default UserList;
