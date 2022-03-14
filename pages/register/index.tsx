@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import axios, { AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
@@ -46,34 +47,33 @@ const RegisterPage: NextPage = () => {
       return;
     }
 
-    // budget validation successful
-    // (async () => {
     const payload = {
       email,
       password,
     };
 
-    const response = await fetch("https://testapi.schattenbrot.com/v1/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    const response: AxiosResponse<any, any> = await axios.post(
+      "/v1/users",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response) {
       console.log("Something horrible happened");
     }
 
+    const data = response.data;
+
+    console.log(data);
+
     if (response.status === 201) {
       router.push("/login");
       return;
     }
-
-    const data = await response.json();
-
-    console.log(data);
-    // })();
   };
 
   const resetHandler: FormEventHandler = (event) => {

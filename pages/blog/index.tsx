@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import PostList from "../../components/blog/PostList";
@@ -10,8 +11,8 @@ const Blog: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("https://testapi.schattenbrot.com/v1/posts");
-      const data: PostType[] = await response.json();
+      const response = await axios.get("/v1/posts");
+      const data: PostType[] = response.data;
       setPosts(data);
     })();
   }, []);

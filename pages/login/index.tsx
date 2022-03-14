@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import axios, { AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
@@ -36,20 +37,16 @@ const Login: NextPage = () => {
         password,
       };
 
-      const response = await fetch(
-        "https://testapi.schattenbrot.com/v1/users/login",
+      const response: AxiosResponse<any, any> = await axios.post(
+        `/v1/users/login`,
+        payload,
         {
-          method: "POST",
           headers: {
-            Accept: "application/json",
             "Content-Type": "application/json",
           },
-          credentials: "same-origin",
-          body: JSON.stringify(payload),
+          withCredentials: true,
         }
       );
-
-      console.log(response);
 
       if (!response) {
         console.log("Something horrible happened");
@@ -59,10 +56,6 @@ const Login: NextPage = () => {
         router.push("/");
         return;
       }
-
-      const data = await response.json();
-
-      console.log(data);
     })();
   };
 
