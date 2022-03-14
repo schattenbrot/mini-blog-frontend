@@ -6,6 +6,9 @@
   border: 0.125rem solid $highlight;
 
   &.ok {
+    color: $primary;
+    background-color: $highlight;
+
     &:hover {
       box-shadow: 0 0.25em 1em $highlight;
     }
@@ -21,10 +24,13 @@
   }
 
   &.danger {
-    background-color: map-get($status, "danger");
-    border: 0.125rem solid map-get($status, "danger");
+    color: $primary;
+    background-color: darken(map-get($status, "danger"), 20%);
+    border: 0.125rem solid darken(map-get($status, "danger"), 20%);
 
     &:hover {
+      background-color: map-get($status, "danger");
+      border: 0.125rem solid map-get($status, "danger");
       box-shadow: 0 0.25em 1em map-get($status, "danger");
     }
   }
