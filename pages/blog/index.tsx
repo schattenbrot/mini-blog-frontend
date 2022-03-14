@@ -24,8 +24,8 @@ const Blog: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>
-        <h1 className={styles.title}>Blog</h1>
+      <main className={styles.container}>
+        <h1>Blog</h1>
         <PostList posts={posts} />
       </main>
     </>
