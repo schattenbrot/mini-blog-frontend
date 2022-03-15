@@ -38,9 +38,6 @@ const RegisterPage: NextPage = () => {
       return;
     }
 
-    console.log(email);
-    console.log(password);
-
     const payload = {
       email,
       password,
