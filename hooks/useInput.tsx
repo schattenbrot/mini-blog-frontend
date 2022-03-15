@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type BindType = {
   value: string;
-  onInput: React.FormEventHandler<HTMLInputElement>;
+  onInput: React.FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 const useInput = (initialValue: string) => {
