@@ -6,30 +6,21 @@ import { FormEventHandler, MouseEventHandler, useState } from "react";
 import styles from "../../styles/pages/Register.module.scss";
 import Button from "../../components/base/Button";
 import { validateEmail, validatePassword } from "../../helpers/validation";
+import useInput from "../../hooks/useInput";
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-  const emailInputHandler: React.FormEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const passwordInputHandler: React.FormEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const confirmPasswordInputHandler: React.FormEventHandler<
-    HTMLInputElement
-  > = (event) => {
-    setConfirmPassword(event.currentTarget.value);
-  };
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
+  const {
+    value: password,
+    bind: bindPassword,
+    reset: resetPassword,
+  } = useInput("");
+  const {
+    value: confirmPassword,
+    bind: bindConfirmPassword,
+    reset: resetConfirmPassword,
+  } = useInput("");
 
   const toLoginHandler: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -46,6 +37,9 @@ const RegisterPage: NextPage = () => {
     if (!validatePassword(password) && password !== confirmPassword) {
       return;
     }
+
+    console.log(email);
+    console.log(password);
 
     const payload = {
       email,
@@ -78,9 +72,9 @@ const RegisterPage: NextPage = () => {
 
   const resetHandler: FormEventHandler = (event) => {
     event.preventDefault();
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    resetEmail();
+    resetPassword();
+    resetConfirmPassword();
   };
 
   return (
@@ -96,13 +90,7 @@ const RegisterPage: NextPage = () => {
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
             <label htmlFor='email'>Email</label>
-            <input
-              type='email'
-              name='email'
-              id='email'
-              value={email}
-              onInput={emailInputHandler}
-            />
+            <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
             <label htmlFor='password'>Password</label>
@@ -110,8 +98,7 @@ const RegisterPage: NextPage = () => {
               type='password'
               name='password'
               id='password'
-              value={password}
-              onInput={passwordInputHandler}
+              {...bindPassword}
             />
           </div>
           <div className={styles["input-element"]}>
@@ -120,8 +107,7 @@ const RegisterPage: NextPage = () => {
               type='password'
               name='confirm-password'
               id='confirm-password'
-              value={confirmPassword}
-              onInput={confirmPasswordInputHandler}
+              {...bindConfirmPassword}
             />
           </div>
           <div className={styles.control}>

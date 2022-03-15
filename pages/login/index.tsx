@@ -5,23 +5,16 @@ import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
 import Button from "../../components/base/Button";
 import styles from "../../styles/pages/Login.module.scss";
+import useInput from "../../hooks/useInput";
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const emailInputHandler: React.FormEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const passwordInputHandler: React.FormEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    setPassword(event.currentTarget.value);
-  };
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
+  const {
+    value: password,
+    bind: bindPassword,
+    reset: resetPassword,
+  } = useInput("");
 
   const toRegisterHandler: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -62,8 +55,8 @@ const Login: NextPage = () => {
   const resetHandler: FormEventHandler = (event) => {
     event.preventDefault();
 
-    setEmail("");
-    setPassword("");
+    resetEmail();
+    resetPassword();
   };
 
   return (
@@ -79,13 +72,7 @@ const Login: NextPage = () => {
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
             <label htmlFor='email'>Email</label>
-            <input
-              type='email'
-              name='email'
-              id='email'
-              value={email}
-              onInput={emailInputHandler}
-            />
+            <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
             <label htmlFor='password'>Password</label>
@@ -93,8 +80,7 @@ const Login: NextPage = () => {
               type='password'
               name='password'
               id='password'
-              value={password}
-              onInput={passwordInputHandler}
+              {...bindPassword}
             />
           </div>
           <div className={styles.control}>
