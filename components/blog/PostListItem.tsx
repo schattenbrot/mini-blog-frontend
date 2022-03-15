@@ -10,9 +10,11 @@ const PostListItem: React.FC<PostListItemType> = (props) => {
 
   return (
     <li className={styles.card}>
-      <h2 className={styles["card__title"]}>{title}</h2>
-      <p>{text}</p>
-      <p>{creator}</p>
+      <div>
+        <h2 className={styles["card__title"]}>{title}</h2>
+        <p className={styles["card__text"]}>{text}</p>
+        <p>{creator}</p>
+      </div>
       <div className={styles["card__dates"]}>
         <p>{created_at}</p>
         <p>{updated_at}</p>

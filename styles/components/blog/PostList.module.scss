@@ -1,4 +1,8 @@
 .post-list {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   list-style-type: none;
   padding: 0;
 }

@@ -3,8 +3,9 @@
 .container {
   background-color: $primary-80;
   max-width: 70%;
-  // font-size: 2rem;
+  max-height: 80vh;
   padding: 1em 2em;
+  overflow: hidden;
   border-radius: 1em;
   box-shadow: 0 0.25em 1em $highlight;
 
@@ -14,4 +15,13 @@
     text-decoration: underline;
     margin-bottom: 0.5em;
   }
+}
+
+.scrolling-container {
+  margin: 0 auto;
+  padding: 2em;
+  width: 90%;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }

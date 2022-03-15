@@ -1,7 +1,10 @@
 @use "../../abstracts" as *;
 
 .card {
-  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 12rem;
   background-color: #ccc;
   margin: 0;
   padding: 1em;
@@ -17,6 +20,10 @@
 .card__title {
   display: inline-block;
   font-size: 2em;
+}
+
+.card__text {
+  max-width: 40rem;
 }
 
 .card__dates {

@@ -27,7 +27,9 @@ const Blog: NextPage = () => {
 
       <main className={styles.container}>
         <h1>Blog</h1>
-        <PostList posts={posts} />
+        <div className={styles["scrolling-container"]}>
+          <PostList posts={posts} />
+        </div>
       </main>
     </>
   );
