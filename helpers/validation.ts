@@ -1,5 +1,9 @@
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 24;
+const TITLE_MIN_LENGTH = 3;
+const TITLE_MAX_LENGTH = 40;
+const TEXT_MIN_LENGTH = 5;
+const TEXT_MAX_LENGTH = 700;
 
 export const validateEmail: (email: string) => boolean = (email: string) => {
   const regexp = new RegExp(
@@ -18,6 +22,26 @@ const passwordLengthIsValid = (password: string): boolean => {
     return false;
   }
   if (password.length > PASSWORD_MAX_LENGTH) {
+    return false;
+  }
+  return true;
+};
+
+export const validateTitle = (title: string): boolean => {
+  if (title.length < TITLE_MIN_LENGTH) {
+    return false;
+  }
+  if (title.length > TITLE_MAX_LENGTH) {
+    return false;
+  }
+  return true;
+};
+
+export const validateText = (text: string): boolean => {
+  if (text.length < TEXT_MIN_LENGTH) {
+    return false;
+  }
+  if (text.length > TEXT_MAX_LENGTH) {
     return false;
   }
   return true;
