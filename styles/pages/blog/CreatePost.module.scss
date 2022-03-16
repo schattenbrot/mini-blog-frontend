@@ -1,0 +1,46 @@
+@use "../../abstracts" as *;
+
+.container {
+  background-color: $primary-80;
+  max-width: 70%;
+  padding: 1em 2em;
+  border-radius: 1em;
+  box-shadow: 0 0.25em 1em $highlight;
+
+  h1 {
+    color: $highlight;
+    text-decoration: underline;
+    margin-bottom: 0.5em;
+  }
+}
+
+.input-element {
+  margin-bottom: 1em;
+
+  label {
+    display: block;
+  }
+
+  input,
+  textarea {
+    font-size: 1em;
+    display: block;
+    width: 100%;
+    border-radius: 1em;
+    border: 2px solid $highlight;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0.25em 1em $highlight;
+    }
+  }
+}
+
+.control {
+  float: right;
+  button {
+    margin: 0 0.25em;
+    padding: 0.25em 1em;
+    font-size: 1em;
+  }
+}
