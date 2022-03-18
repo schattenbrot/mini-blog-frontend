@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NextComponentType } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +27,9 @@ const Navbar: NextComponentType = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.logo}></h1>
+      <div className={styles.logo}>
+        <Image src='/favicon-32x32.png' width='32' height='32' alt='SB' />
+      </div>
       <nav className={styles.nav}>
         <ul>
           <div>

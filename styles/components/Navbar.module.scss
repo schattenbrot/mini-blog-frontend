@@ -8,15 +8,14 @@
 }
 
 .logo {
-  background: $highlight;
-  height: 3.5rem;
-  width: 3.5rem;
   grid-area: logo;
+  display: grid;
   text-decoration: none;
 }
 
 .nav {
   grid-area: navbar;
+  height: 3.5rem;
 
   ul {
     display: flex;
