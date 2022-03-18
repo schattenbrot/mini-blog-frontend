@@ -1,8 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useSelector } from "react-redux";
+import { State } from "../store";
 import styles from "../styles/pages/Home.module.scss";
 
 const Home: NextPage = () => {
+  const userId: string = useSelector((state: State) => state.user);
   return (
     <>
       <Head>
@@ -12,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1 className={styles.title}>Home</h1>
+        <h1 className={styles.title}>Home - {userId}</h1>
       </main>
     </>
   );

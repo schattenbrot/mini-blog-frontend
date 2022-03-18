@@ -1,8 +1,13 @@
+import axios from "axios";
 import { NextComponentType } from "next";
 import Link from "next/link";
 import styles from "../../styles/components/Navbar.module.scss";
 
 const Navbar: NextComponentType = () => {
+  const logoutFunc = () => {
+    axios.get("/users/logout");
+  };
+
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.logo}></h1>
@@ -20,6 +25,9 @@ const Navbar: NextComponentType = () => {
             </li>
           </div>
           <div>
+            <li>
+              <button onClick={logoutFunc}>Logout</button>
+            </li>
             <li>
               <Link href='/login'>Login</Link>
             </li>

@@ -11,7 +11,7 @@ const Blog: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get("/v1/posts");
+      const response = await axios.get("/posts");
       const data: PostType[] = response.data;
       setPosts(data);
     })();

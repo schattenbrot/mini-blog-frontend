@@ -14,11 +14,9 @@ const CreatePostPage: NextPage = () => {
 
   const submitHandler: React.FormEventHandler = async (event) => {
     event.preventDefault();
-    console.log("clicked");
 
     // validate Title and Text
     if (!validateTitle(title) && !validateText(text)) {
-      console.log("ups");
       return;
     }
 
@@ -27,7 +25,7 @@ const CreatePostPage: NextPage = () => {
       text,
     };
 
-    const response = await axios.post("/v1/posts", payload, {
+    const response = await axios.post("/posts", payload, {
       headers: {
         "Content-Type": "application/json",
       },

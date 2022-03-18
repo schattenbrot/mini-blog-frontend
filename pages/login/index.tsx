@@ -1,14 +1,22 @@
 import type { NextPage } from "next";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
 import Button from "../../components/base/Button";
 import styles from "../../styles/pages/Login.module.scss";
 import useInput from "../../hooks/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../../store";
+import { bindActionCreators } from "redux";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { loginUser } = bindActionCreators(actionCreators, dispatch);
+  const state = useSelector((state: State) => state.user);
+
   const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
   const {
     value: password,
@@ -30,24 +38,20 @@ const Login: NextPage = () => {
         password,
       };
 
-      const response: AxiosResponse<any, any> = await axios.post(
-        `/v1/users/login`,
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      try {
+        const response: AxiosResponse<any, any> = await axios
+          .post(`/users/login`, payload, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          })
+          .catch();
 
-      if (!response) {
-        console.log("Something horrible happened");
-      }
-
-      if (response.status === 200) {
+        loginUser(response.data.id);
         router.push("/");
-        return;
+      } catch (error) {
+        console.error("An error occurred: " + error);
       }
     })();
   };
