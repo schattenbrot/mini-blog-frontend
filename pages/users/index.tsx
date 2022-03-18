@@ -18,10 +18,6 @@ const exampleUser: UserType = {
 const Users: NextPage = () => {
   const [userList, setUserList] = useState<UserType[]>([exampleUser]);
 
-  useEffect(() => {
-    console.log("UseEffect to do uwu");
-  }, []);
-
   return (
     <>
       <Head>
