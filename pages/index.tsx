@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1 className={styles.title}>Home - {userId}</h1>
+        <h1 className={styles.title}>Home {userId && "- " + userId}</h1>
       </main>
     </>
   );

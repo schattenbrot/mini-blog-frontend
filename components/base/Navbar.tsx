@@ -1,11 +1,27 @@
 import axios from "axios";
 import { NextComponentType } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators, State } from "../../store";
 import styles from "../../styles/components/Navbar.module.scss";
 
 const Navbar: NextComponentType = () => {
-  const logoutFunc = () => {
-    axios.get("/users/logout");
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { logoutUser } = bindActionCreators(actionCreators, dispatch);
+  const userId: string = useSelector((state: State) => state.user);
+
+  const logoutHandler = async () => {
+    try {
+      await axios.get("/users/logout");
+      logoutUser();
+
+      router.replace("/login");
+    } catch (error) {
+      console.error("Could not log the user out: " + error);
+    }
   };
 
   return (
@@ -24,17 +40,26 @@ const Navbar: NextComponentType = () => {
               <Link href='/users'>Users</Link>
             </li>
           </div>
-          <div>
-            <li>
-              <button onClick={logoutFunc}>Logout</button>
-            </li>
-            <li>
-              <Link href='/login'>Login</Link>
-            </li>
-            <li>
-              <Link href='/register'>Register </Link>
-            </li>
-          </div>
+          {userId && (
+            <div>
+              <li>
+                <Link href={"/users/" + userId}>{userId}</Link>
+              </li>
+              <li>
+                <a onClick={logoutHandler}>Logout</a>
+              </li>
+            </div>
+          )}
+          {!userId && (
+            <div>
+              <li>
+                <Link href='/login'>Login</Link>
+              </li>
+              <li>
+                <Link href='/register'>Register</Link>
+              </li>
+            </div>
+          )}
         </ul>
       </nav>
     </div>
