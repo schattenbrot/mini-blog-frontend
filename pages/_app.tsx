@@ -1,10 +1,11 @@
 import type { AppProps } from "next/app";
 import axios from "axios";
 import Layout from "../layouts/Layout";
+import { PersistGate } from "redux-persist/integration/react";
 import "../styles/globals.scss";
 
 import { Provider } from "react-redux";
-import { store } from "../store/index";
+import Store from "../store/store";
 import Head from "next/head";
 
 axios.defaults.baseURL =
@@ -14,15 +15,18 @@ axios.defaults.baseURL =
 axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { store, persistor } = Store();
   return (
     <>
       <Head>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <PersistGate persistor={persistor}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PersistGate>
       </Provider>
     </>
   );
