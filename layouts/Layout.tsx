@@ -10,11 +10,11 @@ const Layout: NextComponentType = ({ children }) => {
 
   useEffect(() => {
     const lastInputs = userInputs.slice(
-      userInputs.length - 9,
+      userInputs.length - 7,
       userInputs.length
     );
 
-    if (lastInputs === "easteruwu") {
+    if (lastInputs === "uwunyan") {
       setShowEasterEgg(true);
     }
 
