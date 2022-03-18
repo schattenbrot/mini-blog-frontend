@@ -38,11 +38,7 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { postId } = context.params as IParams;
 
-  const res = await axios.get(`/v1/posts/${postId}`);
-
-  if (!res) {
-    console.error("fuck");
-  }
+  const res = await axios.get(`/posts/${postId}`);
 
   const post: PostType = res.data;
 
@@ -54,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`/v1/posts`);
+  const res = await axios.get(`/posts`);
   const posts: PostType[] = res.data;
   const paths = posts.map((post) => ({ params: { postId: post.id } }));
 

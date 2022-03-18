@@ -1,15 +1,11 @@
+@use "../../abstracts" as *;
+
 .card {
   min-width: 20rem;
   background-color: #ccc;
   margin: 0;
   padding: 1em;
   border-radius: 0.5em;
-
-  &:hover {
-    scale: 1.1;
-    background-color: white;
-    box-shadow: 0 0.25em 1em #fff;
-  }
 }
 
 .card__title {
@@ -19,6 +15,8 @@
 
 .card__dates {
   margin-top: 1em;
+  font-size: 0.75rem;
+  color: lighten($secondary, 40%);
 
   p {
     text-align: right;
