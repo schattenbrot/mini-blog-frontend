@@ -6,8 +6,8 @@ import { FormEventHandler, MouseEventHandler, useState } from "react";
 import Button from "../../components/base/Button";
 import styles from "../../styles/pages/Login.module.scss";
 import useInput from "../../hooks/useInput";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators, State } from "../../store";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../store";
 import { bindActionCreators } from "redux";
 
 const Login: NextPage = () => {
@@ -15,7 +15,6 @@ const Login: NextPage = () => {
   const dispatch = useDispatch();
 
   const { loginUser } = bindActionCreators(actionCreators, dispatch);
-  const state = useSelector((state: State) => state.user);
 
   const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
   const {
