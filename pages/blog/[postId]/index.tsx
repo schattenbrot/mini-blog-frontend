@@ -1,17 +1,37 @@
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import Button from "../../components/base/Button";
-import PostListItem from "../../components/blog/PostListItem";
-import { PostType } from "../../models/models";
-import styles from "../../styles/pages/blog/PostDetails.module.scss";
+import { FormEventHandler, MouseEventHandler } from "react";
+import Button from "../../../components/base/Button";
+import PostListItem from "../../../components/blog/PostListItem";
+import { PostType } from "../../../models/models";
+import styles from "../../../styles/pages/blog/PostDetails.module.scss";
 
 export type PostDetailsProps = {
   selectedPost: PostType;
 };
 
 const PostDetailsPage: NextPage<PostDetailsProps> = (props) => {
+  const router = useRouter();
+  const submitHandler: FormEventHandler = (event) => {
+    event.preventDefault();
+
+    router.push(`/blog/${props.selectedPost.id}/edit`);
+  };
+
+  const deleteHandler: MouseEventHandler<Element> = async () => {
+    try {
+      await axios.delete(`/posts/${props.selectedPost.id}`);
+
+      router.push(`/blog`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -21,11 +41,14 @@ const PostDetailsPage: NextPage<PostDetailsProps> = (props) => {
       </Head>
       <div className={styles.container}>
         <PostListItem post={props.selectedPost} />
-        <div className={styles.controls}>
-          <Button type='button' className='btn ok'>
-            Yeah uwu
+        <form className={styles.controls} onSubmit={submitHandler}>
+          <Button type='button' className='danger' onClick={deleteHandler}>
+            Delete
           </Button>
-        </div>
+          <Button type='submit' className='btn ok'>
+            Edit
+          </Button>
+        </form>
       </div>
     </>
   );
