@@ -3,9 +3,9 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
-import Button from "../../components/base/Button";
-import UserListItem from "../../components/users/UserListItem";
-import { UserType } from "../../models/models";
+import Button from "../../../components/base/Button";
+import UserListItem from "../../../components/users/UserListItem";
+import { UserType } from "../../../models/models";
 import styles from "../../styles/pages/users/UserDetails.module.scss";
 
 export type UserDetailsProps = {
