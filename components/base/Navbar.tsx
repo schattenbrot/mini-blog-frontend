@@ -28,7 +28,12 @@ const Navbar: NextComponentType = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
-        <Image src='/favicon-32x32.png' width='32' height='32' alt='SB' />
+        <Image
+          src='/assets/images/favicon-32x32.png'
+          width='32'
+          height='32'
+          alt='SB'
+        />
       </div>
       <nav className={styles.nav}>
         <ul>

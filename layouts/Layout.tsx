@@ -37,7 +37,7 @@ const Layout: NextComponentType = ({ children }) => {
       {showEasterEgg ? (
         <div className={styles.easterContainer} onClick={closeEasterEgg}>
           <Image
-            src='/astolfo.png'
+            src='/assets/images/astolfo.png'
             alt='astolfo it is'
             width='780px'
             height='1033px'
