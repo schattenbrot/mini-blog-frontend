@@ -28,3 +28,16 @@
   overflow-y: auto;
   scrollbar-width: none;
 }
+
+.controls {
+  margin-top: 1em;
+  float: right;
+
+  button:first-of-type {
+    margin-right: 1em;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
