@@ -12,7 +12,7 @@ const Navbar: NextComponentType = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { logoutUser } = bindActionCreators(actionCreators, dispatch);
-  const userId: string = useSelector((state: State) => state.user);
+  const userId: string = useSelector((state: State) => state.users);
 
   const logoutHandler = async () => {
     try {

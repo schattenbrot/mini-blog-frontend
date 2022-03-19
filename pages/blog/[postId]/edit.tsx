@@ -16,14 +16,13 @@ export type PostEditProps = {
 };
 
 const EditPostPage: NextPage<PostEditProps> = (props) => {
-  const userId: string = useSelector((state: State) => state.user);
   const {
     id: postId,
     title: initialTitle,
     text: initialText,
-    creator,
   } = props.selectedPost;
   const router = useRouter();
+
   const {
     value: title,
     bind: bindTitle,

@@ -5,7 +5,7 @@ import { State } from "../store";
 import styles from "../styles/pages/Home.module.scss";
 
 const Home: NextPage = () => {
-  const userId: string = useSelector((state: State) => state.user);
+  const userId: string = useSelector((state: State) => state.users);
   return (
     <>
       <Head>

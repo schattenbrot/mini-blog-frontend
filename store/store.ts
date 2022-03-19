@@ -12,12 +12,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-const PersistGate = () => {
-  let store = createStore(persistedReducer, {}, applyMiddleware(thunk));
-  let persistor = persistStore(store);
-  return { store, persistor };
-};
+export const store = createStore(persistedReducer, applyMiddleware(thunk));
+export const persistor = persistStore(store);
 
-export default PersistGate;
+// export default {
+//   store,
+//   persistor,
+// };
 
-// export const store = createStore(reducers, {}, applyMiddleware(thunk));
+// export default PersistGate;
+
+// export const store = createStore(reducers, applyMiddleware(thunk));
