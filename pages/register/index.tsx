@@ -5,11 +5,20 @@ import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
 import styles from "../../styles/pages/Register.module.scss";
 import Button from "../../components/base/Button";
-import { validateEmail, validatePassword } from "../../helpers/validation";
+import {
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from "../../helpers/validation";
 import useInput from "../../hooks/useInput";
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
+  const {
+    value: username,
+    bind: bindUsername,
+    reset: resetUsername,
+  } = useInput("");
   const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
   const {
     value: password,
@@ -31,6 +40,9 @@ const RegisterPage: NextPage = () => {
     event.preventDefault();
 
     // simple form validation
+    if (!validateUsername(username)) {
+      return;
+    }
     if (!validateEmail(email)) {
       return;
     }
@@ -39,36 +51,38 @@ const RegisterPage: NextPage = () => {
     }
 
     const payload = {
+      name: username,
       email,
       password,
     };
 
-    const response: AxiosResponse<any, any> = await axios.post(
-      "/users",
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const response: AxiosResponse<any, any> = await axios.post(
+        "/users",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = response.data;
+
+      console.log(data);
+
+      if (response.status === 201) {
+        router.push("/login");
+        return;
       }
-    );
-
-    if (!response) {
-      console.log("Something horrible happened");
-    }
-
-    const data = response.data;
-
-    console.log(data);
-
-    if (response.status === 201) {
-      router.push("/login");
-      return;
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const resetHandler: FormEventHandler = (event) => {
     event.preventDefault();
+    resetUsername();
     resetEmail();
     resetPassword();
     resetConfirmPassword();
@@ -85,6 +99,15 @@ const RegisterPage: NextPage = () => {
       <div className={styles.container}>
         <h1>Register</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
+          <div className={styles["input-element"]}>
+            <label htmlFor='username'>Username</label>
+            <input
+              type='text'
+              name='username'
+              id='username'
+              {...bindUsername}
+            />
+          </div>
           <div className={styles["input-element"]}>
             <label htmlFor='email'>Email</label>
             <input type='email' name='email' id='email' {...bindEmail} />

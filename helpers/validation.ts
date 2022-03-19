@@ -4,6 +4,8 @@ const TITLE_MIN_LENGTH = 3;
 const TITLE_MAX_LENGTH = 40;
 const TEXT_MIN_LENGTH = 5;
 const TEXT_MAX_LENGTH = 700;
+const USER_MIN_LENGTH = 3;
+const USERNAME_MAX_LENGTH = 20;
 
 export const validateEmail: (email: string) => boolean = (email: string) => {
   const regexp = new RegExp(
@@ -42,6 +44,16 @@ export const validateText = (text: string): boolean => {
     return false;
   }
   if (text.length > TEXT_MAX_LENGTH) {
+    return false;
+  }
+  return true;
+};
+
+export const validateUsername = (username: string): boolean => {
+  if (username.length < USER_MIN_LENGTH) {
+    return false;
+  }
+  if (username.length > USERNAME_MAX_LENGTH) {
     return false;
   }
   return true;
