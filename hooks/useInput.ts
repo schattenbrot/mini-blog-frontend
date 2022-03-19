@@ -19,7 +19,7 @@ const useInput = (initialValue: string) => {
     },
   };
 
-  return { value, bind, reset };
+  return { value, bind, reset, setValue };
 };
 
 export default useInput;
