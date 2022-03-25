@@ -16,6 +16,7 @@
 .nav {
   grid-area: navbar;
   height: 3.5rem;
+  overflow: hidden;
 
   ul {
     display: flex;
@@ -27,16 +28,16 @@
     height: 100%;
   }
 
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
   .login-div {
     display: inline;
     float: right;
   }
+}
+
+.link-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .link {
@@ -48,4 +49,33 @@
   &:hover {
     background-color: $highlight;
   }
+}
+
+.dropdown {
+  & > a::after {
+    padding-left: 0.25rem;
+    content: "\f101";
+  }
+
+  &:hover {
+    & > a::after {
+      content: "\f103";
+    }
+  }
+}
+
+.dropdown:hover {
+  .dropdown-content {
+    display: block;
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 4rem;
+  background-color: darken($color: $background, $amount: 10);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }

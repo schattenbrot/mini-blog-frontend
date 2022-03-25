@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextComponentType } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -38,19 +37,31 @@ const Navbar: NextComponentType = () => {
       </div>
       <nav className={styles.nav}>
         <ul>
-          <div>
+          <div className={styles["link-area"]}>
             <li>
-              <NavLink href='/'>Home</NavLink>
+              <NavLink href='/' exact>
+                Home
+              </NavLink>
             </li>
-            <li>
+            <li className={styles.dropdown}>
               <NavLink href='/blog'>Blog</NavLink>
+              <div className={styles["dropdown-content"]}>
+                <NavLink href='/blog/create' className='nav-link' exact>
+                  Create Post
+                </NavLink>
+              </div>
             </li>
-            <li>
+            <li className={styles.dropdown}>
               <NavLink href='/users'>Users</NavLink>
+              <div className={styles["dropdown-content"]}>
+                <NavLink href={"/users/" + userId} className='nav-link' exact>
+                  Show account
+                </NavLink>
+              </div>
             </li>
           </div>
           {userId && (
-            <div>
+            <div className={styles["link-area"]}>
               <li>
                 <NavLink href={"/users/" + userId}>{userId}</NavLink>
               </li>
@@ -62,7 +73,7 @@ const Navbar: NextComponentType = () => {
             </div>
           )}
           {!userId && (
-            <div>
+            <div className={styles["link-area"]}>
               <li>
                 <NavLink href='/login'>Login</NavLink>
               </li>
