@@ -13,4 +13,8 @@
 
 .active {
   color: $highlight;
+
+  &:hover {
+    color: $secondary-highlight;
+  }
 }
