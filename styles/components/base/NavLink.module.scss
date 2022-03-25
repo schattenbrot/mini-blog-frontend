@@ -18,3 +18,8 @@
     color: $secondary-highlight;
   }
 }
+
+.nav-link {
+  background-color: darken($background, 10);
+  padding: 0.5rem;
+}

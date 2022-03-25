@@ -18,8 +18,6 @@ const NavLink: React.FC<NavLinkProps> = ({
 }) => {
   const { pathname } = useRouter();
 
-  if (exact === undefined) exact = true;
-
   const isActive = exact ? pathname === href : pathname.startsWith(href);
 
   let cssClasses = styles["link"];
