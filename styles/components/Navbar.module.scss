@@ -33,21 +33,19 @@
     gap: 1rem;
   }
 
-  li {
-    a {
-      color: $primary;
-      text-decoration: none;
-      font-size: 2rem;
-      padding: 1rem;
-
-      &:hover {
-        background-color: $highlight;
-      }
-    }
-  }
-
   .login-div {
     display: inline;
     float: right;
+  }
+}
+
+.link {
+  color: $primary;
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 1rem;
+
+  &:hover {
+    background-color: $highlight;
   }
 }

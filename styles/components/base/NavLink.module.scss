@@ -1,0 +1,16 @@
+@use "../../abstracts" as *;
+
+.link {
+  color: $primary;
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 1rem;
+
+  &:hover {
+    background-color: $highlight;
+  }
+}
+
+.active {
+  color: $highlight;
+}

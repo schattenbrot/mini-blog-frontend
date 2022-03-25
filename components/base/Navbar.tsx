@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../../store";
 import styles from "../../styles/components/Navbar.module.scss";
+import NavLink from "./NavLink";
 
 const Navbar: NextComponentType = () => {
   const router = useRouter();
@@ -39,32 +40,34 @@ const Navbar: NextComponentType = () => {
         <ul>
           <div>
             <li>
-              <Link href='/'>Home</Link>
+              <NavLink href='/'>Home</NavLink>
             </li>
             <li>
-              <Link href='/blog'>Blog</Link>
+              <NavLink href='/blog'>Blog</NavLink>
             </li>
             <li>
-              <Link href='/users'>Users</Link>
+              <NavLink href='/users'>Users</NavLink>
             </li>
           </div>
           {userId && (
             <div>
               <li>
-                <Link href={"/users/" + userId}>{userId}</Link>
+                <NavLink href={"/users/" + userId}>{userId}</NavLink>
               </li>
               <li>
-                <a onClick={logoutHandler}>Logout</a>
+                <a onClick={logoutHandler} className={styles.link}>
+                  Logout
+                </a>
               </li>
             </div>
           )}
           {!userId && (
             <div>
               <li>
-                <Link href='/login'>Login</Link>
+                <NavLink href='/login'>Login</NavLink>
               </li>
               <li>
-                <Link href='/register'>Register</Link>
+                <NavLink href='/register'>Register</NavLink>
               </li>
             </div>
           )}
