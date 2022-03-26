@@ -6,7 +6,9 @@ import { useRouter } from "next/router";
 import { FormEventHandler } from "react";
 import { useSelector } from "react-redux";
 import Button from "../../components/base/Button";
+import useI18n from "../../hooks/useI18n";
 import useInput from "../../hooks/useInput";
+import { UsersPageTextType } from "../../i18n/types";
 import { State } from "../../store";
 
 import styles from "../../styles/pages/Users.module.scss";
@@ -14,6 +16,7 @@ import styles from "../../styles/pages/Users.module.scss";
 const Users: NextPage = () => {
   const { user: userId } = useSelector((state: State) => state.users);
   const router = useRouter();
+  const lang: UsersPageTextType = useI18n(router.locale, router.asPath);
 
   const { value: typedUserId, bind: bindTypedUserId } = useInput("");
 
@@ -37,19 +40,17 @@ const Users: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>Users</h1>
-        <Link href={`/users/${userId}`}>
-          Click this to see your own user data.
-        </Link>
-        <form onSubmit={searchHandler} className={styles["input-element"]}>
-          <label htmlFor='typedUserId'>Search User ID:</label>
+        <h1>{lang.title}</h1>
+        <Link href={`/users/${userId}`}>{lang.selfDetailsLink}</Link>
+        <form onSubmit={searchHandler} className={styles["form"]}>
+          <label htmlFor='typedUserId'>{lang.searchLabel}</label>
           <input
             type='text'
             name='typedUserId'
             id='typedUserId'
             {...bindTypedUserId}
           />
-          <Button type='submit'>Search</Button>
+          <Button type='submit'>{lang.searchButton}</Button>
         </form>
       </div>
     </>

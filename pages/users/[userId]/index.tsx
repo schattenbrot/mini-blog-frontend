@@ -11,6 +11,8 @@ import {
 } from "react";
 import Button from "../../../components/base/Button";
 import UserListItem from "../../../components/users/UserListItem";
+import useI18n from "../../../hooks/useI18n";
+import { ShowUsersTextType } from "../../../i18n/types/showUsersTextType";
 import { UserType } from "../../../models/models";
 import styles from "../../../styles/pages/users/UserDetails.module.scss";
 
@@ -20,6 +22,7 @@ export type UserDetailsProps = {
 
 const UserDetailsPage: NextPage<UserDetailsProps> = (props) => {
   const router = useRouter();
+  const lang: ShowUsersTextType = useI18n(router.locale, router.asPath);
   const [selectedUser, setSelectedUser] = useState<UserType>();
 
   useEffect(() => {
@@ -67,10 +70,10 @@ const UserDetailsPage: NextPage<UserDetailsProps> = (props) => {
             <UserListItem user={selectedUser} />
             <form className={styles.controls} onSubmit={submitHandler}>
               <Button type='button' className='danger' onClick={deleteHandler}>
-                Delete
+                {lang.deleteButton}
               </Button>
               <Button type='submit' className='btn ok'>
-                Edit
+                {lang.editButton}
               </Button>
             </form>
           </>

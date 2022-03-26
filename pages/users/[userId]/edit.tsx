@@ -13,6 +13,8 @@ import {
 import useInput from "../../../hooks/useInput";
 import { ParsedUrlQuery } from "querystring";
 import { UserType } from "../../../models/models";
+import { EditUserTextType } from "../../../i18n/types";
+import useI18n from "../../../hooks/useI18n";
 
 export type EditUserProps = {
   selectedUserId: string;
@@ -21,6 +23,7 @@ export type EditUserProps = {
 const EditUserPage: NextPage<EditUserProps> = (props) => {
   const { selectedUserId: userId } = props;
   const router = useRouter();
+  const lang: EditUserTextType = useI18n(router.locale, router.asPath);
 
   const {
     value: username,
@@ -131,10 +134,12 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
       </Head>
 
       <div className={styles.container}>
-        <h1>Edit User - {userId}</h1>
+        <h1>
+          {lang.title} - {userId}
+        </h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='username'>{lang.usernameLabel}</label>
             <input
               type='username'
               name='username'
@@ -143,11 +148,11 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>{lang.emailLabel}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>{lang.passwordLabel}</label>
             <input
               type='password'
               name='password'
@@ -156,7 +161,9 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='confirm-password'>Confirm Password</label>
+            <label htmlFor='confirm-password'>
+              {lang.confirmPasswordLabel}
+            </label>
             <input
               type='password'
               name='confirm-password'
@@ -166,10 +173,10 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              Reset
+              {lang.deleteButton}
             </Button>
             <Button type='submit' className='ok'>
-              Update
+              {lang.confirmButton}
             </Button>
           </div>
         </form>

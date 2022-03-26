@@ -1,11 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import useI18n from "../hooks/useI18n";
+import { HomeTextType } from "../i18n/types";
 import { State } from "../store";
 import styles from "../styles/pages/Home.module.scss";
 
 const Home: NextPage = () => {
+  const { locale, asPath } = useRouter();
   const { user: userId } = useSelector((state: State) => state.users);
+  const lang: HomeTextType = useI18n(locale, asPath);
   return (
     <>
       <Head>
@@ -15,7 +20,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1 className={styles.title}>Home {userId && "- " + userId}</h1>
+        <h1 className={styles.title}>
+          {lang.title} {userId && userId}
+        </h1>
       </main>
     </>
   );
