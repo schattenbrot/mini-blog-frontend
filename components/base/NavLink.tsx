@@ -18,9 +18,13 @@ const NavLink: React.FC<NavLinkProps> = ({
   locale,
   ...props
 }) => {
-  const { pathname } = useRouter();
+  const { pathname, locale: currLang } = useRouter();
 
-  const isActive = exact ? pathname === href : pathname.startsWith(href);
+  const isActive = !locale
+    ? exact
+      ? pathname === href
+      : pathname.startsWith(href)
+    : locale === currLang;
 
   let cssClasses = styles["link"];
   if (className) {
