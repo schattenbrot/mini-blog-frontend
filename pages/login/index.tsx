@@ -9,9 +9,12 @@ import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../store";
 import { bindActionCreators } from "redux";
+import useI18n from "../../hooks/useI18n";
+import { LoginTextType } from "../../i18n/types";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const lang: LoginTextType = useI18n(router.locale, router.asPath);
   const dispatch = useDispatch();
 
   const { loginUser } = bindActionCreators(actionCreators, dispatch);
@@ -73,14 +76,14 @@ const Login: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>Login</h1>
+        <h1>{lang.title}</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>{lang.email}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>{lang.password}</label>
             <input
               type='password'
               name='password'
@@ -90,13 +93,13 @@ const Login: NextPage = () => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              Reset
+              {lang.resetButton}
             </Button>
             <Button type='button' className='' onClick={toRegisterHandler}>
-              To Register
+              {lang.registerLink}
             </Button>
             <Button type='submit' className='ok'>
-              Login
+              {lang.loginButton}
             </Button>
           </div>
         </form>

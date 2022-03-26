@@ -14,6 +14,14 @@ const englishContent: LanguageType = {
     loginLink: "To Login",
     registerButton: "Register",
   },
+  "/login": {
+    title: "Login",
+    email: "Email",
+    password: "Password",
+    resetButton: "Reset",
+    registerLink: "To Register",
+    loginButton: "Login",
+  },
   "/blog/create": {
     title: "Create Post",
     titleLabel: "Title",
