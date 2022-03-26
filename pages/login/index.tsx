@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
@@ -38,14 +38,16 @@ const Login: NextPage = () => {
       };
 
       try {
-        const response: AxiosResponse<any, any> = await axios
-          .post(`/users/login`, payload, {
+        const response: AxiosResponse<any, any> = await axios.post(
+          `/users/login`,
+          payload,
+          {
             headers: {
               "Content-Type": "application/json",
             },
             withCredentials: true,
-          })
-          .catch();
+          }
+        );
 
         loginUser(response.data.id);
         router.push("/");

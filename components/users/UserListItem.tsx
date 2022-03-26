@@ -6,7 +6,7 @@ export type UserListItemProps = {
 };
 
 const UserListItem: React.FC<UserListItemProps> = (props) => {
-  const { id: userid, name, email, roles, created_at } = props.user;
+  const { name, email, roles, created_at } = props.user;
 
   return (
     <li className={styles.card}>

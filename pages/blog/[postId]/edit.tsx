@@ -8,8 +8,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { PostType } from "../../../models/models";
-import { useSelector } from "react-redux";
-import { State } from "../../../store";
 
 export type PostEditProps = {
   selectedPost: PostType;

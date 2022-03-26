@@ -1,6 +1,6 @@
 import styles from "../../styles/components/users/UserList.module.scss";
 import { UserType } from "../../models/models";
-import UserListItem, { UserListItemProps } from "./UserListItem";
+import UserListItem from "./UserListItem";
 
 type UserListProps = {
   users: UserType[];
