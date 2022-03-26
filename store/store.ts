@@ -14,12 +14,3 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = createStore(persistedReducer, applyMiddleware(thunk));
 export const persistor = persistStore(store);
-
-// export default {
-//   store,
-//   persistor,
-// };
-
-// export default PersistGate;
-
-// export const store = createStore(reducers, applyMiddleware(thunk));
