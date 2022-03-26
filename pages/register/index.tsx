@@ -11,9 +11,12 @@ import {
   validateUsername,
 } from "../../helpers/validation";
 import useInput from "../../hooks/useInput";
+import useI18n from "../../hooks/useI18n";
+import { RegisterTextType } from "../../i18n/types";
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
+  const lang: RegisterTextType = useI18n(router.locale, router.asPath);
   const {
     value: username,
     bind: bindUsername,
@@ -97,10 +100,10 @@ const RegisterPage: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>Register</h1>
+        <h1>{lang.title}</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='username'>{lang.username}</label>
             <input
               type='text'
               name='username'
@@ -109,11 +112,11 @@ const RegisterPage: NextPage = () => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>{lang.email}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>{lang.password}</label>
             <input
               type='password'
               name='password'
@@ -122,7 +125,7 @@ const RegisterPage: NextPage = () => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='confirm-password'>Confirm Password</label>
+            <label htmlFor='confirm-password'>{lang.confirmPassword}</label>
             <input
               type='password'
               name='confirm-password'
@@ -132,13 +135,13 @@ const RegisterPage: NextPage = () => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              Reset
+              {lang.resetButton}
             </Button>
             <Button type='button' className='' onClick={toLoginHandler}>
-              To Login
+              {lang.loginLink}
             </Button>
             <Button type='submit' className='ok'>
-              Register
+              {lang.registerButton}
             </Button>
           </div>
         </form>
