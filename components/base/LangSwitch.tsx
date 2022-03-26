@@ -4,7 +4,7 @@ import NavLink from "./NavLink";
 import styles from "../../styles/components/base/LangSwitch.module.scss";
 
 const LangSwitch: React.FC = () => {
-  const { locale, locales, defaultLocale, asPath } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <div className={styles.languageSwitch}>
