@@ -9,6 +9,7 @@ import { actionCreators, State } from "../../store";
 import styles from "../../styles/components/Navbar.module.scss";
 import NavLink from "./NavLink";
 import dayjs from "dayjs";
+import LangSwitch from "./LangSwitch";
 
 const Navbar: NextComponentType = () => {
   const router = useRouter();
@@ -70,28 +71,31 @@ const Navbar: NextComponentType = () => {
               </div>
             </li>
           </div>
-          {userId && (
-            <div className={styles["link-area"]}>
-              <li>
-                <NavLink href={"/users/" + userId}>{userId}</NavLink>
-              </li>
-              <li>
-                <a onClick={logoutHandler} className={styles.link}>
-                  Logout
-                </a>
-              </li>
-            </div>
-          )}
-          {!userId && (
-            <div className={styles["link-area"]}>
-              <li>
-                <NavLink href='/login'>Login</NavLink>
-              </li>
-              <li>
-                <NavLink href='/register'>Register</NavLink>
-              </li>
-            </div>
-          )}
+          <div className={styles["link-area"]}>
+            {userId && (
+              <>
+                <li>
+                  <NavLink href={"/users/" + userId}>{userId}</NavLink>
+                </li>
+                <li>
+                  <a onClick={logoutHandler} className={styles.link}>
+                    Logout
+                  </a>
+                </li>
+              </>
+            )}
+            {!userId && (
+              <>
+                <li>
+                  <NavLink href='/login'>Login</NavLink>
+                </li>
+                <li>
+                  <NavLink href='/register'>Register</NavLink>
+                </li>
+              </>
+            )}
+            <LangSwitch />
+          </div>
         </ul>
       </nav>
     </div>

@@ -7,6 +7,7 @@ type NavLinkProps = {
   exact?: boolean;
   className?: string;
   activeClassName?: string;
+  locale?: string;
 };
 
 const NavLink: React.FC<NavLinkProps> = ({
@@ -14,6 +15,7 @@ const NavLink: React.FC<NavLinkProps> = ({
   exact,
   activeClassName,
   className,
+  locale,
   ...props
 }) => {
   const { pathname } = useRouter();
@@ -35,7 +37,7 @@ const NavLink: React.FC<NavLinkProps> = ({
   }
 
   return (
-    <Link href={href}>
+    <Link href={href} locale={locale}>
       <a className={cssClasses}>{props.children}</a>
     </Link>
   );

@@ -6,9 +6,13 @@ import Button from "../../components/base/Button";
 import { validateText, validateTitle } from "../../helpers/validation";
 import axios from "axios";
 import { useRouter } from "next/router";
+import useI18n from "../../hooks/useI18n";
+import { CreatePostTextType } from "../../i18n/types";
 
 const CreatePostPage: NextPage = () => {
   const router = useRouter();
+  const { locale, asPath } = router;
+  const lang: CreatePostTextType = useI18n(locale, asPath);
   const { value: title, bind: bindTitle, reset: resetTitle } = useInput("");
   const { value: text, bind: bindText, reset: resetText } = useInput("");
 
@@ -56,14 +60,14 @@ const CreatePostPage: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.container}>
-        <h1>Create Post</h1>
+        <h1>{lang.title}</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='title'>Title</label>
+            <label htmlFor='title'>{lang.titleLabel}</label>
             <input type='text' name='title' id='title' {...bindTitle} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='text'>Text</label>
+            <label htmlFor='text'>{lang.textLabel}</label>
             <textarea
               name='text'
               id='text'
@@ -74,10 +78,10 @@ const CreatePostPage: NextPage = () => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              Reset
+              {lang.resetButton}
             </Button>
             <Button type='submit' className='ok'>
-              Create
+              {lang.createButton}
             </Button>
           </div>
         </form>
