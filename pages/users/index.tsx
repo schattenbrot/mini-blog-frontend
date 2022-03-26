@@ -12,7 +12,7 @@ import { State } from "../../store";
 import styles from "../../styles/pages/Users.module.scss";
 
 const Users: NextPage = () => {
-  const userId: string = useSelector((state: State) => state.user);
+  const { user: userId } = useSelector((state: State) => state.users);
   const router = useRouter();
 
   const { value: typedUserId, bind: bindTypedUserId } = useInput("");

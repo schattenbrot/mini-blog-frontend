@@ -2,17 +2,27 @@ import axios from "axios";
 import { NextComponentType } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, State } from "../../store";
 import styles from "../../styles/components/Navbar.module.scss";
 import NavLink from "./NavLink";
+import dayjs from "dayjs";
 
 const Navbar: NextComponentType = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { logoutUser } = bindActionCreators(actionCreators, dispatch);
-  const userId: string = useSelector((state: State) => state.users);
+  const { user: userId, cookieExpiration } = useSelector(
+    (state: State) => state.users
+  );
+
+  useEffect(() => {
+    if (dayjs(cookieExpiration).isBefore(dayjs())) {
+      logoutUser();
+    }
+  }, [cookieExpiration, logoutUser]);
 
   const logoutHandler = async () => {
     try {

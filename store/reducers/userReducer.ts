@@ -1,12 +1,24 @@
 import { ActionType } from "../action-types";
 import { Action } from "../actions/index";
+import dayjs from "dayjs";
 
-const initialState = "";
+interface UserState {
+  user: string;
+  cookieExpiration: dayjs.Dayjs;
+}
 
-const userReducer = (state: string = initialState, action: Action) => {
+const initialState: UserState = {
+  user: "",
+  cookieExpiration: dayjs(),
+};
+
+const userReducer = (state: UserState = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.LOGIN:
-      return action.payload;
+      return {
+        user: action.payload,
+        cookieExpiration: dayjs().add(24, "hour"),
+      };
     case ActionType.LOGOUT:
       return initialState;
     default:
