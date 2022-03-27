@@ -8,6 +8,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { PostType } from "../../../models/models";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export type PostEditProps = {
   selectedPost: PostType;
@@ -20,6 +22,7 @@ const EditPostPage: NextPage<PostEditProps> = (props) => {
     text: initialText,
   } = props.selectedPost;
   const router = useRouter();
+  const { t } = useTranslation();
 
   const {
     value: title,
@@ -73,14 +76,16 @@ const EditPostPage: NextPage<PostEditProps> = (props) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.container}>
-        <h1>Edit Post - {postId}</h1>
+        <h1>
+          {t("editUser:pageTitle")} - {postId}
+        </h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='title'>Title</label>
+            <label htmlFor='title'>{t("editUser:titleLabel")}</label>
             <input type='text' name='title' id='title' {...bindTitle} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='text'>Text</label>
+            <label htmlFor='text'>{t("editUser:contentLabel")}</label>
             <textarea
               name='text'
               id='text'
@@ -91,10 +96,10 @@ const EditPostPage: NextPage<PostEditProps> = (props) => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              Reset
+              {t("editUser:resetButton")}
             </Button>
             <Button type='submit' className='ok'>
-              Confirm
+              {t("editUser:confirmButton")}
             </Button>
           </div>
         </form>
@@ -109,6 +114,7 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { postId } = context.params as IParams;
+  const locale = context.locale ?? "en";
 
   const res = await axios.get(`/posts/${postId}`);
 
@@ -117,6 +123,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       selectedPost: post,
+      ...(await serverSideTranslations(locale!, ["editPost"])),
     },
   };
 };

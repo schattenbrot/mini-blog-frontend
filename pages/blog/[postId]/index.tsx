@@ -15,6 +15,7 @@ export type PostDetailsProps = {
 
 const PostDetailsPage: NextPage<PostDetailsProps> = (props) => {
   const router = useRouter();
+
   const submitHandler: FormEventHandler = (event) => {
     event.preventDefault();
 

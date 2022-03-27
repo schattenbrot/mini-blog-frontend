@@ -1,12 +1,16 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import PostList from "../../components/blog/PostList";
 import { PostType } from "../../models/models";
 import styles from "../../styles/pages/Blog.module.scss";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Blog: NextPage = () => {
+  const { t } = useTranslation();
+
   const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
@@ -26,13 +30,22 @@ const Blog: NextPage = () => {
       </Head>
 
       <main className={styles.container}>
-        <h1>Blog</h1>
+        <h1>{t("blog:pageTitle")}</h1>
         <div className={styles["scrolling-container"]}>
           <PostList posts={posts} />
         </div>
       </main>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  locale ?? "en";
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["blog"])),
+    },
+  };
 };
 
 export default Blog;
