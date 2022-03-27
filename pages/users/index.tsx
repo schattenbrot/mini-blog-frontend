@@ -1,14 +1,14 @@
 import axios from "axios";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEventHandler } from "react";
 import { useSelector } from "react-redux";
 import Button from "../../components/base/Button";
-import useI18n from "../../hooks/useI18n";
 import useInput from "../../hooks/useInput";
-import { UsersPageTextType } from "../../i18n/types";
 import { State } from "../../store";
 
 import styles from "../../styles/pages/Users.module.scss";
@@ -16,7 +16,7 @@ import styles from "../../styles/pages/Users.module.scss";
 const Users: NextPage = () => {
   const { user: userId } = useSelector((state: State) => state.users);
   const router = useRouter();
-  const lang: UsersPageTextType = useI18n(router.locale, router.asPath);
+  const { t } = useTranslation();
 
   const { value: typedUserId, bind: bindTypedUserId } = useInput("");
 
@@ -40,21 +40,30 @@ const Users: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>{lang.title}</h1>
-        <Link href={`/users/${userId}`}>{lang.selfDetailsLink}</Link>
+        <h1>{t("users:pageTitle")}</h1>
+        <Link href={`/users/${userId}`}>{t("users:selfDetailsLink")}</Link>
         <form onSubmit={searchHandler} className={styles["form"]}>
-          <label htmlFor='typedUserId'>{lang.searchLabel}</label>
+          <label htmlFor='typedUserId'>{t("users:searchLabel")}</label>
           <input
             type='text'
             name='typedUserId'
             id='typedUserId'
             {...bindTypedUserId}
           />
-          <Button type='submit'>{lang.searchButton}</Button>
+          <Button type='submit'>{t("users:searchButton")}</Button>
         </form>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  locale ?? "en";
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["users"])),
+    },
+  };
 };
 
 export default Users;

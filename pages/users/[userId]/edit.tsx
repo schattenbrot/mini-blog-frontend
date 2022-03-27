@@ -13,8 +13,8 @@ import {
 import useInput from "../../../hooks/useInput";
 import { ParsedUrlQuery } from "querystring";
 import { UserType } from "../../../models/models";
-import { EditUserTextType } from "../../../i18n/types";
-import useI18n from "../../../hooks/useI18n";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export type EditUserProps = {
   selectedUserId: string;
@@ -23,7 +23,7 @@ export type EditUserProps = {
 const EditUserPage: NextPage<EditUserProps> = (props) => {
   const { selectedUserId: userId } = props;
   const router = useRouter();
-  const lang: EditUserTextType = useI18n(router.locale, router.asPath);
+  const { t } = useTranslation();
 
   const {
     value: username,
@@ -135,11 +135,11 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
 
       <div className={styles.container}>
         <h1>
-          {lang.title} - {userId}
+          {t("editUser:pageTitle")} - {userId}
         </h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='username'>{lang.usernameLabel}</label>
+            <label htmlFor='username'>{t("editUser:nameLabel")}</label>
             <input
               type='username'
               name='username'
@@ -148,11 +148,11 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>{lang.emailLabel}</label>
+            <label htmlFor='email'>{t("editUser:emailLabel")}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>{lang.passwordLabel}</label>
+            <label htmlFor='password'>{t("editUser:passwordLabel")}</label>
             <input
               type='password'
               name='password'
@@ -162,7 +162,7 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
           </div>
           <div className={styles["input-element"]}>
             <label htmlFor='confirm-password'>
-              {lang.confirmPasswordLabel}
+              {t("editUser:confirmPasswordLabel")}
             </label>
             <input
               type='password'
@@ -173,10 +173,10 @@ const EditUserPage: NextPage<EditUserProps> = (props) => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              {lang.deleteButton}
+              {t("editUser:deleteButton")}
             </Button>
             <Button type='submit' className='ok'>
-              {lang.confirmButton}
+              {t("editUser:confirmButton")}
             </Button>
           </div>
         </form>
@@ -191,10 +191,12 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { userId } = context.params as IParams;
+  const locale = context.locale ?? "en";
 
   return {
     props: {
       selectedUserId: userId,
+      ...(await serverSideTranslations(locale!, ["editUser"])),
     },
   };
 };

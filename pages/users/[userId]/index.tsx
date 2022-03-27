@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -11,8 +13,6 @@ import {
 } from "react";
 import Button from "../../../components/base/Button";
 import UserListItem from "../../../components/users/UserListItem";
-import useI18n from "../../../hooks/useI18n";
-import { ShowUsersTextType } from "../../../i18n/types/showUsersTextType";
 import { UserType } from "../../../models/models";
 import styles from "../../../styles/pages/users/UserDetails.module.scss";
 
@@ -22,7 +22,7 @@ export type UserDetailsProps = {
 
 const UserDetailsPage: NextPage<UserDetailsProps> = (props) => {
   const router = useRouter();
-  const lang: ShowUsersTextType = useI18n(router.locale, router.asPath);
+  const { t } = useTranslation();
   const [selectedUser, setSelectedUser] = useState<UserType>();
 
   useEffect(() => {
@@ -70,10 +70,10 @@ const UserDetailsPage: NextPage<UserDetailsProps> = (props) => {
             <UserListItem user={selectedUser} />
             <form className={styles.controls} onSubmit={submitHandler}>
               <Button type='button' className='danger' onClick={deleteHandler}>
-                {lang.deleteButton}
+                {t("userDetails:deleteButton")}
               </Button>
               <Button type='submit' className='btn ok'>
-                {lang.editButton}
+                {t("userDetails:editButton")}
               </Button>
             </form>
           </>
@@ -90,10 +90,12 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { userId } = context.params as IParams;
+  const locale = context.locale ?? "en";
 
   return {
     props: {
       selectedUserId: userId,
+      ...(await serverSideTranslations(locale!, ["userDetails"])),
     },
   };
 };
