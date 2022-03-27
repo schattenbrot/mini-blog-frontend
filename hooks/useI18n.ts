@@ -6,7 +6,6 @@ const useI18n = (locale: string | undefined, page: string) => {
   if (pageSplit.length > 2) {
     switch (pageSplit[1]) {
       case "blog": {
-        console.log("blog case triggered");
         if (pageSplit[2] !== "create") page = "postDetails";
         break;
       }
