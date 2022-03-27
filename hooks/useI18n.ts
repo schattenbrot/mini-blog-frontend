@@ -3,7 +3,6 @@ import german from "../i18n/german";
 
 const useI18n = (locale: string | undefined, page: string) => {
   const pageSplit = page.split("/");
-  console.log(pageSplit);
   if (pageSplit.length > 2) {
     switch (pageSplit[1]) {
       case "blog": {
