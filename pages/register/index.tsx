@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import axios, { AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -11,12 +11,12 @@ import {
   validateUsername,
 } from "../../helpers/validation";
 import useInput from "../../hooks/useInput";
-import useI18n from "../../hooks/useI18n";
-import { RegisterTextType } from "../../i18n/types";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
-  const lang: RegisterTextType = useI18n(router.locale, router.asPath);
+  const { t } = useTranslation();
   const {
     value: username,
     bind: bindUsername,
@@ -100,10 +100,10 @@ const RegisterPage: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>{lang.title}</h1>
+        <h1>{t("register:pageTitle")}</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='username'>{lang.username}</label>
+            <label htmlFor='username'>{t("register:nameLabel")}</label>
             <input
               type='text'
               name='username'
@@ -112,11 +112,11 @@ const RegisterPage: NextPage = () => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>{lang.email}</label>
+            <label htmlFor='email'>{t("register:emailLabel")}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>{lang.password}</label>
+            <label htmlFor='password'>{t("register:passwordLabel")}</label>
             <input
               type='password'
               name='password'
@@ -125,7 +125,9 @@ const RegisterPage: NextPage = () => {
             />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='confirm-password'>{lang.confirmPassword}</label>
+            <label htmlFor='confirm-password'>
+              {t("register:confirmPasswordLabel")}
+            </label>
             <input
               type='password'
               name='confirm-password'
@@ -135,19 +137,28 @@ const RegisterPage: NextPage = () => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              {lang.resetButton}
+              {t("register:resetButton")}
             </Button>
             <Button type='button' className='' onClick={toLoginHandler}>
-              {lang.loginLink}
+              {t("register:toLoginLink")}
             </Button>
             <Button type='submit' className='ok'>
-              {lang.registerButton}
+              {t("register:registerButton")}
             </Button>
           </div>
         </form>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  locale ?? "en";
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["register"])),
+    },
+  };
 };
 
 export default RegisterPage;

@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import axios, { AxiosResponse } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -9,12 +9,12 @@ import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../store";
 import { bindActionCreators } from "redux";
-import useI18n from "../../hooks/useI18n";
-import { LoginTextType } from "../../i18n/types";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const lang: LoginTextType = useI18n(router.locale, router.asPath);
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const { loginUser } = bindActionCreators(actionCreators, dispatch);
@@ -76,14 +76,14 @@ const Login: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1>{lang.title}</h1>
+        <h1>{t("login:pageTitle")}</h1>
         <form onSubmit={submitHandler} onReset={resetHandler}>
           <div className={styles["input-element"]}>
-            <label htmlFor='email'>{lang.email}</label>
+            <label htmlFor='email'>{t("login:emailLabel")}</label>
             <input type='email' name='email' id='email' {...bindEmail} />
           </div>
           <div className={styles["input-element"]}>
-            <label htmlFor='password'>{lang.password}</label>
+            <label htmlFor='password'>{t("login:passwordLabel")}</label>
             <input
               type='password'
               name='password'
@@ -93,19 +93,28 @@ const Login: NextPage = () => {
           </div>
           <div className={styles.control}>
             <Button type='reset' className='danger'>
-              {lang.resetButton}
+              {t("login:resetButton")}
             </Button>
             <Button type='button' className='' onClick={toRegisterHandler}>
-              {lang.registerLink}
+              {t("login:toRegisterLink")}
             </Button>
             <Button type='submit' className='ok'>
-              {lang.loginButton}
+              {t("login:loginButton")}
             </Button>
           </div>
         </form>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  locale ?? "en";
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["login"])),
+    },
+  };
 };
 
 export default Login;
