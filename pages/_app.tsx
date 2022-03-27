@@ -7,6 +7,7 @@ import "../styles/globals.scss";
 import { Provider } from "react-redux";
 import { store, persistor } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { appWithTranslation } from "next-i18next";
 
 axios.defaults.baseURL =
   process.env.NEXT_PUBLIC_BACKEND_URL != undefined
@@ -31,4 +32,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
