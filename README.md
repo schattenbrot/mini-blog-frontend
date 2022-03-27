@@ -1,5 +1,26 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Use with Docker
+
+If no `.env.local` file containing the backend API it will default to:
+NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
+
+Build with Docker:
+
+> docker build -t blog-name:latest .
+
+Run docker container with default .env:
+
+> docker run --name blog-name -p 3000:3000 -d blog-name:latest
+
+Run docker container with `.env.local` file:
+
+> docker run --name blog-name -p 3000:3000 -d -v (pwd)"/.env.local":"/app/.env.local" blog-name:latest
+
+Run from dockerhub (with .env.local) which doesn't require the build process:
+
+> docker run --name blog-name -p 3000:3000 -d -v (pwd)"/.env.local":"/app/.env.local" schattenbrot/mini-blog-frontend:latest
+
 ## Getting Started
 
 First, run the development server:
